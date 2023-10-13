@@ -1,7 +1,6 @@
 package game;
-import com.diogonunes.jcdp.color.ColoredPrinter;
+import com.beust.jcommander.JCommander;
 import com.diogonunes.jcdp.color.api.Ansi.BColor;
-import com.diogonunes.jcolor.Ansi;
 
 public class Data {
     public static char PLAYER_CHAR;
@@ -14,8 +13,16 @@ public class Data {
     public static BColor ENEMY_COLOR;
     public static BColor WALL_COLOR;
     public static BColor GOAL_COLOR;
+    public static boolean devMode;
 
-    Data (String profile) {
+    Data (String[] args) throws IllegalParametersException {
+        CommandLineArguments commandArg = new CommandLineArguments();
+        JCommander.newBuilder()
+                .addObject(commandArg)
+                .build()
+                .parse(args);
+        commandArg.CheckParameters();
+        devMode = commandArg.getProfile().equals("dev");
         PropertiesParser propertiesParser = new PropertiesParser();
         propertiesParser.readProperties(profile);
 
@@ -31,4 +38,6 @@ public class Data {
         WALL_COLOR = BColor.valueOf(propertiesParser.getPropertyString("wall.color"));
         GOAL_COLOR = BColor.valueOf(propertiesParser.getPropertyString("goal.color"));
     }
+
+
 }
