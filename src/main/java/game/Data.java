@@ -14,6 +14,13 @@ public class Data {
     public static BColor WALL_COLOR;
     public static BColor GOAL_COLOR;
     public static boolean devMode;
+    public static Integer enemiesCount;
+    public static Integer wallsCount;
+    public static Integer size;
+    Enemy[] enemies;
+    Player player;
+    char [][] map;
+
 
     Data (String[] args) throws IllegalParametersException {
         CommandLineArguments commandArg = new CommandLineArguments();
@@ -24,20 +31,25 @@ public class Data {
         commandArg.CheckParameters();
         devMode = commandArg.getProfile().equals("dev");
         PropertiesParser propertiesParser = new PropertiesParser();
-        propertiesParser.readProperties(profile);
+        propertiesParser.readProperties(devMode);
 
-        PLAYER_CHAR = propertiesParser.getPropertyChar("player.char");
-        EMPTY_CHAR = propertiesParser.getPropertyChar("empty.char");
-        ENEMY_CHAR = propertiesParser.getPropertyChar("enemy.char");
-        WALL_CHAR = propertiesParser.getPropertyChar("wall.char");
-        GOAL_CHAR = propertiesParser.getPropertyChar("goal.char");
-        PLAYER_COLOR = BColor.valueOf(propertiesParser.getPropertyString("player.color"));
-        EMPTY_COLOR = BColor.valueOf(propertiesParser.getPropertyString("empty.color"));
-        ENEMY_COLOR = BColor.valueOf(propertiesParser.getPropertyString("enemy.color"));
-        WALL_COLOR = BColor.valueOf(propertiesParser.getPropertyString("wall.color"));
-        WALL_COLOR = BColor.valueOf(propertiesParser.getPropertyString("wall.color"));
-        GOAL_COLOR = BColor.valueOf(propertiesParser.getPropertyString("goal.color"));
+        PLAYER_CHAR = propertiesParser.getProperty("player.char",' ');
+        EMPTY_CHAR = propertiesParser.getProperty("empty.char",' ');
+        ENEMY_CHAR = propertiesParser.getProperty("enemy.char",' ');
+        WALL_CHAR = propertiesParser.getProperty("wall.char",' ');
+        GOAL_CHAR = propertiesParser.getProperty("goal.char",' ');
+        PLAYER_COLOR = BColor.valueOf(propertiesParser.getProperty("player.color", "BLACK"));
+        EMPTY_COLOR = BColor.valueOf(propertiesParser.getProperty("empty.color", "BLACK"));
+        ENEMY_COLOR = BColor.valueOf(propertiesParser.getProperty("enemy.color", "BLACK"));
+        WALL_COLOR = BColor.valueOf(propertiesParser.getProperty("wall.color", "BLACK"));
+        WALL_COLOR = BColor.valueOf(propertiesParser.getProperty("wall.color", "BLACK"));
+        GOAL_COLOR = BColor.valueOf(propertiesParser.getProperty("goal.color", "BLACK"));
+
+        enemiesCount = commandArg.getEnemiesCount();
+        wallsCount = commandArg.getWallsCount();
+        size = commandArg.getSize();
+        player = new Player(0, 0);
+        enemies = new Enemy[enemiesCount];
+        map = new char[size][size];
     }
-
-
 }

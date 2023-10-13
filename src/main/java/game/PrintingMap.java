@@ -3,15 +3,14 @@ package game;
 import com.diogonunes.jcdp.color.ColoredPrinter;
 import com.diogonunes.jcdp.color.api.Ansi;
 
+
 public class PrintingMap {
     char [][] createdMap;
     private final ColoredPrinter coloredPrinter;
-    Player player;
 
-    PrintingMap(int wC, int eC, int s) {
-        MapGeneration map = new MapGeneration(wC, eC, s);
+    PrintingMap(int wC, int eC, int s, Data newData) {
+        MapGeneration map = new MapGeneration(wC, eC, s, newData);
         createdMap = map.createMap();
-        player = map.getPlayer();
         coloredPrinter = new ColoredPrinter.Builder(1, false).foreground(Ansi.FColor.BLACK).build();
         printMap();
     }
@@ -21,10 +20,6 @@ public class PrintingMap {
     }
     public void setCreatedMap(char[][] newMap) {
         createdMap = newMap;
-    }
-
-    public Player getPlayer() {
-        return player;
     }
 
     public void printMap() {

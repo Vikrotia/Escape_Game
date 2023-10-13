@@ -5,27 +5,17 @@ public class MapGeneration {
     int wallsCount;
     int enemiesCount;
     int size;
-    PropertiesParser propertiesParser;
     char [][] map;
     Random random;
-    Enemy[] enemies;
-    Player player;
+    Data data;
 
-
-    public PropertiesParser getProperties(){
-        return propertiesParser;
-    }
-    public Enemy[] getEnemies() { return enemies;}
-    public Player getPlayer() { return player;}
-
-
-    public MapGeneration(int wC, int eC, int s) {
+    public MapGeneration(int wC, int eC, int s, Data newData) {
         wallsCount = wC;
         enemiesCount = eC;
         size = s;
         map = new char[size][size];
         random = new Random();
-        enemies = new Enemy[enemiesCount];
+        data = newData;
     }
 
 
@@ -63,7 +53,7 @@ public class MapGeneration {
             } while(map[x][y] != Data.EMPTY_CHAR);
             map[x][y] = Data.ENEMY_CHAR;
             Enemy enemy = new Enemy(x, y);
-            enemies[j] = enemy;
+            data.enemies[j] = enemy;
             j++;
         }
     }
@@ -76,8 +66,8 @@ public class MapGeneration {
             y = random.nextInt(30);
         } while(map[x][y] != Data.EMPTY_CHAR);
         map[x][y] = Data.PLAYER_CHAR;
-        player = new Player(x, y);
-
+        data.player.setX(x);
+        data.player.setY(y);
     }
 
 

@@ -14,13 +14,6 @@ public class CommandLineArguments {
     @Parameter(names = "--profile", required = true)
     private String profile;
 
-    public void printAr() {
-        System.out.println(enemiesCount);
-        System.out.println(wallsCount);
-        System.out.println(size);
-        System.out.println(profile);
-    }
-
     public int getEnemiesCount() {
         return enemiesCount;
     }

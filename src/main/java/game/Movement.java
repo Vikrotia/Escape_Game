@@ -6,14 +6,13 @@ public class Movement {
     Data data;
     PrintingMap printingMap;
     public char[][] movementMap;
-    Player player;
 
 
     public Movement(int wC, int eC, int s, Data newData){
-        printingMap = new PrintingMap(wC, eC, s);
+        printingMap = new PrintingMap(wC, eC, s, newData);
         movementMap = printingMap.getCreatedMap();
-        player = printingMap.getPlayer();
         data = newData;
+
     }
 
     public void Action() {
@@ -27,8 +26,6 @@ public class Movement {
             userInput = scanner.nextLine().toLowerCase();
         }
         scanner.close();
-//        printingMap.setCreatedMap(movementMap);
-//        printingMap.printMap();
     }
 
 
@@ -44,7 +41,7 @@ public class Movement {
     public void checkMoving(int x, int y) {
         char object;
         try {
-            object = movementMap[player.getX() + x][player.getY() +y];
+            object = movementMap[data.player.getX() + x][data.player.getY() +y];
         } catch (Exception ex) {
             return;
         }
@@ -57,10 +54,10 @@ public class Movement {
             System.out.println("End of the game! You win! :)");
             System.exit(0);
         }
-        movementMap[player.getX()][player.getY()] = Data.EMPTY_CHAR;
-        movementMap[player.getX() + x][player.getY() +y] = Data.PLAYER_CHAR;
-        player.appendX(x);
-        player.appendY(y);
+        movementMap[data.player.getX()][data.player.getY()] = Data.EMPTY_CHAR;
+        movementMap[data.player.getX() + x][data.player.getY() +y] = Data.PLAYER_CHAR;
+        data.player.appendX(x);
+        data.player.appendY(y);
     }
 
 }
