@@ -4,8 +4,7 @@ public class Program {
     public static void main (String[] args) {
         try {
             Data data = new Data(args);
-            Movement map = new Movement(Data.wallsCount, Data.enemiesCount,
-                    Data.size, data);
+            Movement map = new Movement(data);
             map.Action();
         } catch (IllegalParametersException ex) {
             System.err.println("Illegal parameters.");

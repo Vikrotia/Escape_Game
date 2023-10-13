@@ -5,12 +5,10 @@ import java.util.Scanner;
 public class Movement {
     Data data;
     PrintingMap printingMap;
-    public char[][] movementMap;
 
 
-    public Movement(int wC, int eC, int s, Data newData){
-        printingMap = new PrintingMap(wC, eC, s, newData);
-        movementMap = printingMap.getCreatedMap();
+    public Movement(Data newData){
+        printingMap = new PrintingMap(newData);
         data = newData;
 
     }
@@ -21,7 +19,6 @@ public class Movement {
         String userInput = scanner.nextLine().toLowerCase();
         while (!userInput.equals("9")) {
             movingAction(userInput);
-            printingMap.setCreatedMap(movementMap);
             printingMap.printMap();
             userInput = scanner.nextLine().toLowerCase();
         }
@@ -41,7 +38,7 @@ public class Movement {
     public void checkMoving(int x, int y) {
         char object;
         try {
-            object = movementMap[data.player.getX() + x][data.player.getY() +y];
+            object = data.map[data.player.getX() + x][data.player.getY() +y];
         } catch (Exception ex) {
             return;
         }
@@ -54,8 +51,8 @@ public class Movement {
             System.out.println("End of the game! You win! :)");
             System.exit(0);
         }
-        movementMap[data.player.getX()][data.player.getY()] = Data.EMPTY_CHAR;
-        movementMap[data.player.getX() + x][data.player.getY() +y] = Data.PLAYER_CHAR;
+        data.map[data.player.getX()][data.player.getY()] = Data.EMPTY_CHAR;
+        data.map[data.player.getX() + x][data.player.getY() +y] = Data.PLAYER_CHAR;
         data.player.appendX(x);
         data.player.appendY(y);
     }

@@ -4,15 +4,10 @@ public class Player implements MovingObjects {
     private int x;
     private int y;
 
-    public Player(int newX, int newY){
-        x = newX;
-        y = newY;
-    }
+    public Player(int newX, int newY) { x = newX; y = newY;}
 
     @Override
-    public void setX(int newX) {
-        x = newX;
-    }
+    public void setX(int newX) { x = newX;}
 
     @Override
     public void setY(int newY) {
